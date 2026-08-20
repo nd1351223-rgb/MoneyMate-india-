@@ -1,1 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>MoneyMate India</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f4f7;
+  color:#222;
+}
+
+header{
+  background:#1464f4;
+  color:white;
+  text-align:center;
+  padding:22px 10px;
+}
+
+header h1{
+  margin:0;
+}
+
+header p{
+  margin:8px 0 0;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  padding:12px;
+  background:white;
+}
+
+.menu button{
+  border:0;
+  padding:12px 5px;
+  border-radius:8px;
+  background:#e9eef8;
+  font-weight:bold;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
+
+.box{
+  display:none;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 2px 10px #ddd;
+  margin-bottom:20px;
+}
+
+.box.active{
+  display:block;
+}
+
+h2{
+  margin-top:0;
+  color:#1464f4;
+}
+
+label{
+  display:block;
+  margin-top:12px;
+  font-weight:bold;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+}
+
+.calculate{
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  border:0;
+  border-radius:8px;
+  background:#1464f4;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.result{
+  margin-top:18px;
+  padding:15px;
+  border-radius:10px;
+  background:#eef5ff;
+  font-size:18px;
+  line-height:1.8;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+
+@media(max-width:600px){
+
+  .menu{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>💰 MoneyMate India</h1>
+  <p>Simple Money Calculators</p>
+</header>
+
+
+<div class="menu">
+
+  <button onclick="showBox('emi')">
+    🏠 EMI
+  </button>
+
+  <button onclick="showBox('tax')">
+    🧾 TAX
+  </button>
+
+  <button onclick="showBox('salary')">
+    💼 SALARY
+  </button>
+
+  <button onclick="showBox('expense')">
+    💰 EXPENSE
+  </button>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- EMI -->
+
+<div id="emi" class="box active">
+
+<h2>🏠 EMI Calculator</h2>
+
+<label>Loan Amount (₹)</label>
+
+<input
+  id="loan"
+  type="number"
+  placeholder="500000">
+
+
+<label>Annual Interest (%)</label>
+
+<input
+  id="interest"
+  type="number"
+  placeholder="8.5">
+
+
+<label>Loan Period (Years)</label>
+
+<input
+  id="years"
+  type="number"
+  placeholder="5">
+
+
+<button
+  class="calculate"
+  onclick="calculateEMI()">
+
+  Calculate EMI
+
+</button>
+
+<div
+  id="emiResult"
+  class="result">
+
+  Enter details and calculate.
+
+</div>
+
+</div>
+
+
+<!-- TAX -->
+
+<div id="tax" class="box">
+
+<h2>🧾 Tax Calculator</h2>
+
+<label>Annual Income (₹)</label>
+
+<input
+  id="income"
+  type="number"
+  placeholder="500000">
+
+<button
+  class="calculate"
+  onclick="calculateTax()">
+
+  Estimate Tax
+
+</button>
+
+<div
+  id="taxResult"
+  class="result">
+
+  Enter your annual income.
+
+</div>
+
+<p style="font-size:13px;color:#777;">
+This is only an estimated calculation.
+Actual Indian income tax depends on the applicable
+tax regime, deductions, exemptions and current rules.
+</p>
+
+</div>
+
+
+<!-- SALARY -->
+
+<div id="salary" class="box">
+
+<h2>💼 Salary Calculator</h2>
+
+<label>Annual CTC (₹)</label>
+
+<input
+  id="ctc"
+  type="number"
+  placeholder="600000">
+
+
+<label>Monthly Deductions (₹)</label>
+
+<input
+  id="deduction"
+  type="number"
+  placeholder="3000">
+
+
+<button
+  class="calculate"
+  onclick="calculateSalary()">
+
+  Calculate Salary
+
+</button>
+
+<div
+  id="salaryResult"
+  class="result">
+
+  Enter your CTC.
+
+</div>
+
+</div>
+
+
+<!-- EXPENSE -->
+
+<div id="expense" class="box">
+
+<h2>💰 Expense Calculator</h2>
+
+<label>Monthly Income (₹)</label>
+
+<input
+  id="expIncome"
+  type="number"
+  placeholder="30000">
+
+
+<label>Food Expense (₹)</label>
+
+<input
+  id="food"
+  type="number"
+  placeholder="5000">
+
+
+<label>Rent (₹)</label>
+
+<input
+  id="rent"
+  type="number"
+  placeholder="8000">
+
+
+<label>Travel (₹)</label>
+
+<input
+  id="travel"
+  type="number"
+  placeholder="3000">
+
+
+<label>Other Expenses (₹)</label>
+
+<input
+  id="other"
+  type="number"
+  placeholder="2000">
+
+
+<button
+  class="calculate"
+  onclick="calculateExpense()">
+
+  Calculate Savings
+
+</button>
+
+<div
+  id="expenseResult"
+  class="result">
+
+  Enter your monthly details.
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+MoneyMate India © 2026
+
+</footer>
+
+
+<script>
+
+/* MENU */
+
+function showBox(id){
+
+  let boxes =
+    document.querySelectorAll(".box");
+
+  boxes.forEach(function(box){
+    box.classList.remove("active");
+  });
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+}
+
+
+/* EMI */
+
+function calculateEMI(){
+
+  let P =
+    Number(document.getElementById("loan").value);
+
+  let annualRate =
+    Number(document.getElementById("interest").value);
+
+  let years =
+    Number(document.getElementById("years").value);
+
+  if(P <= 0 || annualRate < 0 || years <= 0){
+
+    document.getElementById("emiResult").innerHTML =
+      "⚠️ Please enter valid details.";
+
+    return;
+  }
+
+  let r =
+    annualRate / 12 / 100;
+
+  let n =
+    years * 12;
+
+  let emi;
+
+  if(r === 0){
+
+    emi = P / n;
+
+  }else{
+
+    emi =
+      P * r * Math.pow(1+r,n) /
+      (Math.pow(1+r,n)-1);
+
+  }
+
+  let total =
+    emi * n;
+
+  let interest =
+    total - P;
+
+  document.getElementById("emiResult").innerHTML =
+
+    "Monthly EMI: ₹" +
+    emi.toFixed(0) +
+
+    "<br>Total Payment: ₹" +
+    total.toFixed(0) +
+
+    "<br>Total Interest: ₹" +
+    interest.toFixed(0);
+
+}
+
+
+/* TAX */
+
+function calculateTax(){
+
+  let income =
+    Number(document.getElementById("income").value);
+
+  if(income < 0){
+
+    document.getElementById("taxResult").innerHTML =
+      "⚠️ Enter a valid income.";
+
+    return;
+  }
+
+  /*
+    Simple illustrative estimate.
+    Not an official Indian tax calculation.
+  */
+
+  let tax = 0;
+
+  if(income <= 400000){
+
+    tax = 0;
+
+  }else if(income <= 800000){
+
+    tax =
+      (income - 400000) * 0.05;
+
+  }else if(income <= 1200000){
+
+    tax =
+      20000 +
+      (income - 800000) * 0.10;
+
+  }else if(income <= 1600000){
+
+    tax =
+      60000 +
+      (income - 1200000) * 0.15;
+
+  }else if(income <= 2000000){
+
+    tax =
+      120000 +
+      (income - 1600000) * 0.20;
+
+  }else{
+
+    tax =
+      200000 +
+      (income - 2000000) * 0.25;
+
+  }
+
+  document.getElementById("taxResult").innerHTML =
+
+    "Annual Income: ₹" +
+    income.toFixed(0) +
+
+    "<br>Estimated Tax: ₹" +
+    tax.toFixed(0) +
+
+    "<br>After Estimated Tax: ₹" +
+    (income-tax).toFixed(0);
+
+}
+
+
+/* SALARY */
+
+function calculateSalary(){
+
+  let ctc =
+    Number(document.getElementById("ctc").value);
+
+  let deduction =
+    Number(document.getElementById("deduction").value);
+
+  if(ctc <= 0){
+
+    document.getElementById("salaryResult").innerHTML =
+      "⚠️ Enter a valid CTC.";
+
+    return;
+  }
+
+  let annualSalary =
+    ctc;
+
+  let monthlyGross =
+    annualSalary / 12;
+
+  let monthlyTakeHome =
+    monthlyGross - deduction;
+
+  document.getElementById("salaryResult").innerHTML =
+
+    "Annual CTC: ₹" +
+    annualSalary.toFixed(0) +
+
+    "<br>Monthly Gross: ₹" +
+    monthlyGross.toFixed(0) +
+
+    "<br>Monthly Take-Home Estimate: ₹" +
+    monthlyTakeHome.toFixed(0);
+
+}
+
+
+/* EXPENSE */
+
+function calculateExpense(){
+
+  let income =
+    Number(document.getElementById("expIncome").value);
+
+  let food =
+    Number(document.getElementById("food").value);
+
+  let rent =
+    Number(document.getElementById("rent").value);
+
+  let travel =
+    Number(document.getElementById("travel").value);
+
+  let other =
+    Number(document.getElementById("other").value);
+
+  if(income <= 0){
+
+    document.getElementById("expenseResult").innerHTML =
+      "⚠️ Enter your monthly income.";
+
+    return;
+  }
+
+  let total =
+    food +
+    rent +
+    travel +
+    other;
+
+  let savings =
+    income - total;
+
+  let percentage =
+    (savings / income) * 100;
+
+  document.getElementById("expenseResult").innerHTML =
+
+    "Total Expenses: ₹" +
+    total.toFixed(0) +
+
+    "<br>Monthly Savings: ₹" +
+    savings.toFixed(0) +
+
+    "<br>Saving Rate: " +
+    percentage.toFixed(1) +
+    "%";
+
+}
+
+</script>
+
+</body>
+</html>
